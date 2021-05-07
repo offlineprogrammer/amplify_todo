@@ -1,0 +1,26 @@
+type Todo @model {
+  id: ID!
+  name: String!
+  description: String
+  createdAt: AWSTimestamp
+  updatedAt: AWSTimestamp
+  status: TodoStatus!
+  userId: String
+}
+
+enum TodoStatus {
+  NEW
+  INPROGRESS
+  DONE
+}
+
+type Users @model {
+  id: ID!
+  username: String
+  email: AWSEmail
+  isVerified: Boolean
+  createdAt: AWSTimestamp
+}
+ 
+
+
