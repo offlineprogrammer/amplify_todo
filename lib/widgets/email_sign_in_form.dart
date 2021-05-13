@@ -61,8 +61,8 @@ class EmailSignInForm extends GetWidget<AuthController> {
       ),
       ElevatedButton(
         onPressed: controller.submitEnabled.value
-            ? _submit
-            : null, //controller.submitEmailAndPassword,
+            ? controller.submitEmailAndPassword
+            : null, //
         child: Text(
           controller.primaryButtonText,
         ),

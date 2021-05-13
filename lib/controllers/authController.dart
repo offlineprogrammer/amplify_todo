@@ -1,5 +1,4 @@
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
-import 'package:amplify_todo/controllers/validators.dart';
 import 'package:amplify_todo/models/Users.dart';
 import 'package:amplify_todo/services.dart/auth.service.dart';
 import 'package:flutter/material.dart';
@@ -7,7 +6,7 @@ import 'package:get/get.dart';
 
 enum EmailSignInFormType { signIn, register, confirm }
 
-class AuthController extends GetxController with EmailAndPasswordValidator {
+class AuthController extends GetxController {
   static AuthController to = Get.find();
   RxBool isSignedIn = false.obs;
   AuthService _authService;
@@ -23,6 +22,9 @@ class AuthController extends GetxController with EmailAndPasswordValidator {
   final FocusNode codeFocusNode = FocusNode();
   final FocusNode emailFocusNode = FocusNode();
   final FocusNode passwordFocusNode = FocusNode();
+
+  final String invalidEmailErrorText = 'Email can\'t be empty';
+  final String invalidPasswordErrorText = 'Password can\'t be empty';
 
   //RxString secondaryButtonText = 'Register'.obs;
 
@@ -50,8 +52,7 @@ class AuthController extends GetxController with EmailAndPasswordValidator {
   }
 
   String get emailErrorText {
-    bool showErrorText =
-        submitted && !emailValidator.isValid(emailController.text);
+    bool showErrorText = submitted && !GetUtils.isEmail(emailController.text);
     update();
     return showErrorText ? invalidEmailErrorText : null;
   }
@@ -130,8 +131,8 @@ class AuthController extends GetxController with EmailAndPasswordValidator {
   }
 
   void updateform(String value) {
-    submitEnabled.value = emailValidator.isValid(emailController.text) &&
-        passwordValidator.isValid(passwordController.text) &&
+    submitEnabled.value = GetUtils.isEmail(emailController.text) &&
+        !GetUtils.isBlank(passwordController.text) &&
         !isLoading.value;
   }
 }
