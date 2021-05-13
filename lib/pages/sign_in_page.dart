@@ -89,7 +89,7 @@ class SignInPage extends GetWidget<AuthController> {
           ),
           SocialSignInButton(
             button: Buttons.Email,
-            onPressed: () => _signInWithEmail(context),
+            onPressed: () => Get.toNamed("/emaillogin"),
             color: Colors.deepOrange,
             text: 'Sign in with email',
             textColor: Colors.white,

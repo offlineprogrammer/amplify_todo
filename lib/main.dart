@@ -1,3 +1,4 @@
+import 'package:amplify_todo/app_routes.dart';
 import 'package:amplify_todo/controllers/authController.dart';
 import 'package:amplify_todo/pages/landing_page.dart';
 import 'package:amplify_todo/services.dart/amplify_service.dart';
@@ -30,6 +31,7 @@ class _MyAppState extends State<MyApp> {
         primarySwatch: Colors.blue,
       ),
       home: LandingPage(),
+      getPages: AppRoutes.routes,
     );
   }
 }

@@ -1,3 +1,4 @@
+import 'package:amplify_todo/pages/email_sign_in_page.dart';
 import 'package:amplify_todo/pages/home_page.dart';
 import 'package:get/get.dart';
 
@@ -7,10 +8,11 @@ class AppRoutes {
       name: '/home',
       page: () => HomePage(),
     ),
-    // GetPage(
-    //   name: '/',
-    //   page: () => SnapSell(), //(uncomment here to swith to todo app)TodoList(),
-    // ),
+    GetPage(
+      name: '/emaillogin',
+      page: () =>
+          EmailSignInPage(), //(uncomment here to swith to todo app)TodoList(),
+    ),
     // GetPage(
     //   name: '/login',
     //   page: () => LoginPage(),
