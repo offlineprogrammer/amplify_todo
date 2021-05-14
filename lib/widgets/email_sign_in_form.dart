@@ -54,7 +54,7 @@ class EmailSignInForm extends GetWidget<AuthController> {
           controller: controller.passwordController,
           textInputAction: TextInputAction.done,
           focusNode: controller.passwordFocusNode,
-          //  onEditingComplete: _submit,
+          onEditingComplete: controller.submitEmailAndPassword,
           onChanged: controller.updateform),
       SizedBox(
         height: 8.0,
@@ -91,9 +91,8 @@ class EmailSignInForm extends GetWidget<AuthController> {
         autocorrect: false,
         keyboardType: TextInputType.text,
         textInputAction: TextInputAction.done,
-        focusNode: controller.passwordFocusNode,
-        onEditingComplete: _submit,
-        //onChanged: controller.updateCode,
+        focusNode: controller.codeFocusNode,
+        onEditingComplete: controller.submitEmailAndPassword,
       ),
       SizedBox(
         height: 8.0,

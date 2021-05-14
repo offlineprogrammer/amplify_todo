@@ -58,8 +58,6 @@ class AuthController extends GetxController {
     return showErrorText ? invalidEmailErrorText : null;
   }
 
-  void change() => isSignedIn.value = !isSignedIn.value;
-
   void toggleFormType() {
     print(emailformType.value);
     emailformType.value = emailformType.value == EmailSignInFormType.signIn
@@ -99,9 +97,6 @@ class AuthController extends GetxController {
               passwordController.text,
               codeController.text);
           print(isSignedIn.value);
-          if (isSignedIn.value) {
-            Get.toNamed("/home");
-          }
       }
     } catch (e) {
       //isLoading.value = false;
@@ -119,9 +114,10 @@ class AuthController extends GetxController {
 
   handleAuthChanged(isSignedIn) {
     if (!isSignedIn) {
-      Get.offAllNamed("/login");
-    } else {
       Get.offAllNamed("/");
+    } else {
+      print('Go to Home');
+      Get.offAllNamed("/home");
     }
   }
 
@@ -135,7 +131,9 @@ class AuthController extends GetxController {
 
   void signOut() async {
     try {
+      print('Controller Sign out');
       await _authService.signOut();
+      isSignedIn.value = false;
     } on AuthException catch (e) {
       print(e.message);
     }

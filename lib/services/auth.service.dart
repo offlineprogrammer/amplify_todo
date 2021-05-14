@@ -39,6 +39,7 @@ class AuthService {
 
   Future<bool> signInWithEmailAndPassword(String email, String password) async {
     try {
+      await signOut();
       SignInResult res = await Amplify.Auth.signIn(
         username: email.trim(),
         password: password.trim(),
