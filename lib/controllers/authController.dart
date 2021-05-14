@@ -1,6 +1,7 @@
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_todo/models/Users.dart';
-import 'package:amplify_todo/services.dart/auth.service.dart';
+import 'package:amplify_todo/services/auth.service.dart';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -67,6 +68,7 @@ class AuthController extends GetxController {
 
     emailController.clear();
     passwordController.clear();
+    submitted = false;
   }
 
   Future<void> submitEmailAndPassword() async {
@@ -76,21 +78,30 @@ class AuthController extends GetxController {
     try {
       switch (emailformType.value) {
         case EmailSignInFormType.signIn:
-          // final user =
-          //     await appUser.signInWithEmailAndPassword(email, password);
+          print('Sign In');
+          isSignedIn.value = await _authService.signInWithEmailAndPassword(
+              emailController.text, passwordController.text);
+          print(isSignedIn.value);
           break;
         case EmailSignInFormType.register:
-          // final isSignedUp =
-          //     await appUser.registerWithEmailAndPassword(email, password);
-          // if (isSignedUp) {
-          //   updateWith(
-          //       formType: EmailSignInFormType.confirm,
-          //       isLoading: false,
-          //       submitted: false);
-          // }
+          print('Register');
+          final isSignedUp = await _authService.registerWithEmailAndPassword(
+              emailController.text, passwordController.text);
+
+          print(isSignedUp);
+          if (!isSignedUp) {
+            emailformType.value = EmailSignInFormType.confirm;
+          }
           break;
         case EmailSignInFormType.confirm:
-        // final user = await appUser.confirmRegisterWithCode(email, code);
+          isSignedIn.value = await _authService.confirmRegisterWithCode(
+              emailController.text,
+              passwordController.text,
+              codeController.text);
+          print(isSignedIn.value);
+          if (isSignedIn.value) {
+            Get.toNamed("/home");
+          }
       }
     } catch (e) {
       //isLoading.value = false;

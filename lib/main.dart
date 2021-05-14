@@ -1,7 +1,8 @@
 import 'package:amplify_todo/app_routes.dart';
 import 'package:amplify_todo/controllers/authController.dart';
 import 'package:amplify_todo/pages/landing_page.dart';
-import 'package:amplify_todo/services.dart/amplify_service.dart';
+import 'package:amplify_todo/services/amplify_service.dart';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
