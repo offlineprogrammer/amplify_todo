@@ -7,8 +7,9 @@ import 'package:get/get.dart';
 class LandingPage extends GetWidget<AuthController> {
   @override
   Widget build(BuildContext context) {
+    // final AuthController controller = Get.put(AuthController());
     return Obx(() {
-      return (controller.currentUser.value != null) ? HomePage() : SignInPage();
+      return (controller.isSignedIn.value) ? HomePage() : SignInPage();
     });
   }
 }

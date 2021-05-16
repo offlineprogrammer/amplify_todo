@@ -18,6 +18,17 @@ class AuthService {
     }
   }
 
+  Future<bool> isSignedIn() async {
+    AuthSession authSessions = await Amplify.Auth.fetchAuthSession();
+    return authSessions.isSignedIn;
+  }
+
+  Future<bool> getCurrUser() async {
+    AuthUser authUser = await Amplify.Auth.getCurrentUser();
+
+    return authUser.userId.isNotEmpty;
+  }
+
   Future<bool> registerWithEmailAndPassword(
       String email, String password) async {
     try {

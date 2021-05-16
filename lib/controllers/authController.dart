@@ -29,7 +29,7 @@ class AuthController extends GetxController {
 
   //RxString secondaryButtonText = 'Register'.obs;
 
-  //String get user => currentUser?.value?.email;
+  String get user => currentUser?.value?.email;
 
   AuthController() {
     _authService = AuthService();
@@ -109,7 +109,26 @@ class AuthController extends GetxController {
   @override
   void onInit() {
     ever(isSignedIn, handleAuthChanged);
+
     super.onInit();
+  }
+
+  @override
+  void onReady() {
+    // called after the widget is rendered on screen
+    print('onReady');
+    isUserSignedIn();
+    super.onReady();
+  }
+
+  void isUserSignedIn() async {
+    try {
+      print('IsSignIn');
+      isSignedIn.value = await _authService.isSignedIn();
+      print(isSignedIn.value);
+    } catch (e) {
+      throw e;
+    }
   }
 
   handleAuthChanged(isSignedIn) {
