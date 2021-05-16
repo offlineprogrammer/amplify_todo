@@ -25,7 +25,9 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     super.initState();
-    _configureAmplify();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _configureAmplify();
+    });
   }
 
   void _configureAmplify() async {

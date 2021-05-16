@@ -1,6 +1,6 @@
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_todo/models/Users.dart';
-import 'package:amplify_todo/services/auth.service.dart';
+import 'package:amplify_todo/services/auth_service.dart';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -108,8 +108,6 @@ class AuthController extends GetxController {
 
   @override
   void onInit() {
-    ever(isSignedIn, handleAuthChanged);
-
     super.onInit();
   }
 
@@ -118,6 +116,7 @@ class AuthController extends GetxController {
     // called after the widget is rendered on screen
     print('onReady');
     isUserSignedIn();
+    ever(isSignedIn, handleAuthChanged);
     super.onReady();
   }
 

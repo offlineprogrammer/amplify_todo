@@ -1,7 +1,11 @@
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
+import 'package:amplify_datastore/amplify_datastore.dart';
 import 'package:amplify_flutter/amplify.dart';
+import 'package:amplify_todo/models/Users.dart';
+import 'package:amplify_todo/services/datastore_service.dart';
 
 class AuthService {
+  DataStoreService _dataStoreService = DataStoreService();
   Future<void> signIn(AuthProvider authProvider) async {
     try {
       await Amplify.Auth.signInWithWebUI(provider: authProvider);
@@ -69,7 +73,16 @@ class AuthService {
           username: email, confirmationCode: code);
 
       if (res.isSignUpComplete) {
-        return await signInWithEmailAndPassword(email, password);
+        final signInRes = await signInWithEmailAndPassword(email, password);
+        AuthUser authUser = await Amplify.Auth.getCurrentUser();
+        Users user = new Users(
+            id: authUser.userId,
+            username: email,
+            email: email,
+            isVerified: true,
+            createdAt: TemporalTimestamp.now());
+        await _dataStoreService.saveUser(user);
+        return signInRes;
       }
     } catch (e) {
       throw e;
