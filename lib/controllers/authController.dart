@@ -1,5 +1,5 @@
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
-import 'package:amplify_todo/models/Users.dart';
+
 import 'package:amplify_todo/services/auth_service.dart';
 
 import 'package:flutter/material.dart';
@@ -11,7 +11,6 @@ class AuthController extends GetxController {
   static AuthController to = Get.find();
   RxBool isSignedIn = false.obs;
   AuthService _authService;
-  Rx<Users> currentUser = null.obs;
   Rx<EmailSignInFormType> emailformType = EmailSignInFormType.signIn.obs;
   RxBool isLoading = false.obs;
   bool submitted = false;
@@ -26,10 +25,6 @@ class AuthController extends GetxController {
 
   final String invalidEmailErrorText = 'Email can\'t be empty';
   final String invalidPasswordErrorText = 'Password can\'t be empty';
-
-  //RxString secondaryButtonText = 'Register'.obs;
-
-  String get user => currentUser?.value?.email;
 
   AuthController() {
     _authService = AuthService();
@@ -59,7 +54,6 @@ class AuthController extends GetxController {
   }
 
   void toggleFormType() {
-    print(emailformType.value);
     emailformType.value = emailformType.value == EmailSignInFormType.signIn
         ? EmailSignInFormType.register
         : EmailSignInFormType.signIn;
@@ -76,17 +70,13 @@ class AuthController extends GetxController {
     try {
       switch (emailformType.value) {
         case EmailSignInFormType.signIn:
-          print('Sign In');
           isSignedIn.value = await _authService.signInWithEmailAndPassword(
               emailController.text, passwordController.text);
-          print(isSignedIn.value);
+          // await Get.find<UserController>().getCurrUser();
           break;
         case EmailSignInFormType.register:
-          print('Register');
           final isSignedUp = await _authService.registerWithEmailAndPassword(
               emailController.text, passwordController.text);
-
-          print(isSignedUp);
           if (!isSignedUp) {
             emailformType.value = EmailSignInFormType.confirm;
           }
@@ -96,7 +86,6 @@ class AuthController extends GetxController {
               emailController.text,
               passwordController.text,
               codeController.text);
-          print(isSignedIn.value);
       }
     } catch (e) {
       //isLoading.value = false;
@@ -114,7 +103,6 @@ class AuthController extends GetxController {
   @override
   void onReady() {
     // called after the widget is rendered on screen
-    print('onReady');
     isUserSignedIn();
     ever(isSignedIn, handleAuthChanged);
     super.onReady();
@@ -122,9 +110,7 @@ class AuthController extends GetxController {
 
   void isUserSignedIn() async {
     try {
-      print('IsSignIn');
       isSignedIn.value = await _authService.isSignedIn();
-      print(isSignedIn.value);
     } catch (e) {
       throw e;
     }
@@ -134,7 +120,6 @@ class AuthController extends GetxController {
     if (!isSignedIn) {
       Get.offAllNamed("/");
     } else {
-      print('Go to Home');
       Get.offAllNamed("/home");
     }
   }
@@ -149,7 +134,6 @@ class AuthController extends GetxController {
 
   void signOut() async {
     try {
-      print('Controller Sign out');
       await _authService.signOut();
       isSignedIn.value = false;
     } on AuthException catch (e) {

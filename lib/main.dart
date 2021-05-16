@@ -1,6 +1,7 @@
 import 'package:amplify_todo/app_routes.dart';
 import 'package:amplify_todo/controllers/authController.dart';
 import 'package:amplify_todo/controllers/bindings/authBinding.dart';
+import 'package:amplify_todo/controllers/userController.dart';
 import 'package:amplify_todo/pages/landing_page.dart';
 import 'package:amplify_todo/pages/loading_page.dart';
 import 'package:amplify_todo/services/amplify_service.dart';
@@ -34,6 +35,7 @@ class _MyAppState extends State<MyApp> {
     // Once Plugins are added, configure Amplify
     await AmplifyService.configureAmplify();
     Get.put<AuthController>(AuthController());
+    Get.put<UserController>(UserController());
     try {
       setState(() {
         _amplifyConfigured = true;

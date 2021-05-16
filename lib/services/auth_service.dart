@@ -27,10 +27,10 @@ class AuthService {
     return authSessions.isSignedIn;
   }
 
-  Future<bool> getCurrUser() async {
+  Future<AuthUser> getCurrentUser() async {
     AuthUser authUser = await Amplify.Auth.getCurrentUser();
 
-    return authUser.userId.isNotEmpty;
+    return authUser;
   }
 
   Future<bool> registerWithEmailAndPassword(
