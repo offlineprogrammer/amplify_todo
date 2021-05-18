@@ -1,6 +1,6 @@
 import 'package:amplify_todo/app_routes.dart';
 import 'package:amplify_todo/controllers/authController.dart';
-import 'package:amplify_todo/controllers/bindings/authBinding.dart';
+import 'package:amplify_todo/controllers/bindings/controllers_bindings.dart';
 import 'package:amplify_todo/controllers/userController.dart';
 import 'package:amplify_todo/pages/landing_page.dart';
 import 'package:amplify_todo/pages/loading_page.dart';
@@ -34,8 +34,6 @@ class _MyAppState extends State<MyApp> {
   void _configureAmplify() async {
     // Once Plugins are added, configure Amplify
     await AmplifyService.configureAmplify();
-    Get.put<AuthController>(AuthController());
-    Get.put<UserController>(UserController());
     try {
       setState(() {
         _amplifyConfigured = true;
@@ -48,8 +46,7 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-      //  initialBinding: AuthBinding(),
-
+      initialBinding: ControllersBindings(),
       title: 'Flutter Demo',
       theme: ThemeData(
         primarySwatch: Colors.blue,

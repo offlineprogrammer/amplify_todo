@@ -6,13 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class SignInPage extends GetWidget<AuthController> {
-  void _signInWithEmail(BuildContext context) {
-    // Navigator.of(context).push(
-    //   MaterialPageRoute(
-    //       builder: (context) => EmailSignInPage(), fullscreenDialog: true),
-    // );
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
