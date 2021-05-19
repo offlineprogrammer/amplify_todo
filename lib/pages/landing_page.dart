@@ -7,10 +7,13 @@ import 'package:get/get.dart';
 class LandingPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    // final AuthController controller = Get.put(AuthController());
     AuthController controller = Get.find();
-    return Obx(() {
-      return (controller.isSignedIn.value) ? HomePage() : SignInPage();
-    });
+    return Scaffold(
+      body: Container(
+        child: Center(
+          child: CircularProgressIndicator(),
+        ),
+      ),
+    );
   }
 }

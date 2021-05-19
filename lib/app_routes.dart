@@ -1,6 +1,7 @@
 import 'package:amplify_todo/pages/email_sign_in_page.dart';
 import 'package:amplify_todo/pages/home_page.dart';
 import 'package:amplify_todo/pages/landing_page.dart';
+import 'package:amplify_todo/pages/sign_in_page.dart';
 import 'package:get/get.dart';
 
 class AppRoutes {
@@ -11,37 +12,15 @@ class AppRoutes {
     ),
     GetPage(
       name: '/emaillogin',
-      page: () =>
-          EmailSignInPage(), //(uncomment here to swith to todo app)TodoList(),
+      page: () => EmailSignInPage(),
     ),
     GetPage(
       name: '/',
-      page: () =>
-          LandingPage(), //(uncomment here to swith to todo app)TodoList(),
+      page: () => LandingPage(),
     ),
-    // GetPage(
-    //   name: '/login',
-    //   page: () => LoginPage(),
-    // ),
-    // GetPage(
-    //   name: '/register',
-    //   page: () => RegisterPage(),
-    // ),
-    // GetPage(
-    //   name: '/todos',
-    //   page: () => TodoList(),
-    // ),
-    // GetPage(
-    //   name: '/todos/:id/edit',
-    //   page: () => EditTodo(),
-    // ),
-    // GetPage(
-    //   name: '/add-todo',
-    //   page: () => AddTodo(),
-    // ),
-    // GetPage(
-    //   name: "/products/:product_id/view",
-    //   page: () => ProductDetailsPage(),
-    // )
+    GetPage(
+      name: '/signin',
+      page: () => SignInPage(),
+    ),
   ];
 }

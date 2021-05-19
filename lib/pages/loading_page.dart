@@ -1,23 +1,30 @@
+import 'package:amplify_todo/controllers/authController.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class LoadingPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    AuthController controller = Get.find();
     return Scaffold(
       appBar: AppBar(title: Text('BatMan App')),
       body: Container(
-        color: Color(0xff90CCE6),
+        // color: Color(0xff90CCE6),
         child: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
               Container(
                 color: Color(0xffE1E5E4),
-                height: 200,
+                // height: 200,
                 child: Image.asset(
                   'images/applogo.png',
                   fit: BoxFit.cover,
                 ),
+              ),
+              SizedBox(
+                height: 48.0,
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
@@ -29,6 +36,7 @@ class LoadingPage extends StatelessWidget {
           ),
         ),
       ),
+      backgroundColor: Color(0xffE1E5E4),
     );
   }
 }

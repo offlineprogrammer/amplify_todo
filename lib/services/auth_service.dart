@@ -29,7 +29,6 @@ class AuthService {
 
   Future<AuthUser> getCurrentUser() async {
     AuthUser authUser = await Amplify.Auth.getCurrentUser();
-
     return authUser;
   }
 
@@ -39,7 +38,6 @@ class AuthService {
       Map<String, String> userAttributes = {
         'email': email,
         'preferred_username': email,
-        // additional attributes as needed
       };
       SignUpResult res = await Amplify.Auth.signUp(
           username: email,

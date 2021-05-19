@@ -10,7 +10,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 void main() {
-  // Get.put<AuthController>(AuthController());
   runApp(MyApp());
 }
 
@@ -32,7 +31,6 @@ class _MyAppState extends State<MyApp> {
   }
 
   void _configureAmplify() async {
-    // Once Plugins are added, configure Amplify
     await AmplifyService.configureAmplify();
     try {
       setState(() {
@@ -47,12 +45,22 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       initialBinding: ControllersBindings(),
-      title: 'Flutter Demo',
+      title: 'Flutter ToDo',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.indigo,
       ),
-      home: _amplifyConfigured ? LandingPage() : LoadingPage(),
+      home: _amplifyConfigured ? LoadingPage() : _waitForAmplify(),
       getPages: AppRoutes.routes,
+    );
+  }
+
+  Scaffold _waitForAmplify() {
+    return Scaffold(
+      body: Container(
+        child: Center(
+          child: CircularProgressIndicator(),
+        ),
+      ),
     );
   }
 }

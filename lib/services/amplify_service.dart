@@ -16,8 +16,7 @@ class AmplifyService {
       await Amplify.configure(amplifyconfig);
       print('Amplify Configured');
     } catch (e) {
-      print(
-          "Tried to reconfigure Amplify; this can occur when your app restarts on Android.");
+      print("Tried to reconfigure Amplify");
     }
   }
 }

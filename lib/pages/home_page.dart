@@ -7,12 +7,12 @@ import 'package:get/get.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 
 class HomePage extends StatelessWidget {
-  //final TodoController _todocontroller = Get.put(TodoController());
   TodoController _todocontroller = Get.find();
   AuthController controller = Get.find();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        backgroundColor: Color(0xffE1E5E4),
         appBar: AppBar(
           title: GetX<UserController>(
             initState: (_) async {
@@ -28,16 +28,6 @@ class HomePage extends StatelessWidget {
           ),
           centerTitle: true,
           actions: [
-            IconButton(
-              icon: Icon(Icons.lightbulb),
-              onPressed: () {
-                if (Get.isDarkMode) {
-                  Get.changeTheme(ThemeData.light());
-                } else {
-                  Get.changeTheme(ThemeData.dark());
-                }
-              },
-            ),
             IconButton(
               icon: Icon(Icons.logout),
               onPressed: () {

@@ -12,7 +12,7 @@ class AuthController extends GetxController {
   RxBool isSignedIn = false.obs;
   AuthService _authService;
   Rx<EmailSignInFormType> emailformType = EmailSignInFormType.signIn.obs;
-  RxBool isLoading = false.obs;
+  RxBool isLoading = true.obs;
   bool submitted = false;
   RxBool submitEnabled = false.obs;
 
@@ -110,15 +110,17 @@ class AuthController extends GetxController {
 
   void isUserSignedIn() async {
     try {
+      isLoading.value = true;
       isSignedIn.value = await _authService.isSignedIn();
     } catch (e) {
+      isLoading.value = false;
       throw e;
     }
   }
 
   handleAuthChanged(isSignedIn) {
     if (!isSignedIn) {
-      Get.offAllNamed("/");
+      Get.offAllNamed("/signin");
     } else {
       Get.offAllNamed("/home");
     }

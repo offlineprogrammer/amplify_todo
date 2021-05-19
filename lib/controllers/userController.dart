@@ -6,18 +6,13 @@ import 'package:get/get.dart';
 
 class UserController extends GetxController {
   static UserController to = Get.find();
-  DataStoreService _datastoreService;
-  AuthService _authService;
+  DataStoreService _datastoreService = DataStoreService();
+  AuthService _authService = AuthService();
   Rx<Users> currentUser = Users().obs;
 
   Users get user => currentUser.value;
-  UserController() {
-    _datastoreService = DataStoreService();
-    _authService = AuthService();
-  }
 
   Future<void> getCurrUser() async {
-    print('Get USer');
     AuthUser authUser = await _authService.getCurrentUser();
     currentUser.value = await _datastoreService.getUser(authUser.userId);
   }
