@@ -1,16 +1,25 @@
+import 'package:amplify_todo/controllers/todoController.dart';
 import 'package:amplify_todo/models/Todo.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
 class TodoCard extends StatelessWidget {
   final Todo todo;
-
   const TodoCard({Key key, this.todo}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    TodoController _todocontroller = Get.find();
     return Dismissible(
       direction: DismissDirection.startToEnd,
+      onDismissed: (DismissDirection direction) {
+        if (direction == DismissDirection.startToEnd) {
+          _todocontroller.removeTodo(todo);
+        } else {
+          print('Remove item');
+        }
+      },
       background: Container(
         alignment: Alignment.centerLeft,
         color: Colors.red,

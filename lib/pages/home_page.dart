@@ -7,10 +7,10 @@ import 'package:get/get.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 
 class HomePage extends StatelessWidget {
-  TodoController _todocontroller = Get.find();
-  AuthController controller = Get.find();
   @override
   Widget build(BuildContext context) {
+    TodoController _todocontroller = Get.find();
+    AuthController controller = Get.find();
     return Scaffold(
         backgroundColor: Color(0xffE1E5E4),
         appBar: AppBar(

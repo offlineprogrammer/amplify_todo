@@ -42,4 +42,14 @@ class TodoController extends GetxController {
 
     print(todoList.length);
   }
+
+  Future<void> removeTodo(Todo todo) async {
+    AuthUser _authUser = await _authService.getCurrentUser();
+
+    await _datastoreService.removeTodo(todo);
+    print(todoList.length);
+    todoList.remove(todo);
+
+    print(todoList.length);
+  }
 }

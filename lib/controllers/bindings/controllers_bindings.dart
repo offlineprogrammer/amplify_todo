@@ -8,7 +8,9 @@ class ControllersBindings extends Bindings {
   void dependencies() {
     //  Get.put<AuthController>(AuthController(), permanent: true);
     Get.lazyPut<AuthController>(() => AuthController());
+    // Get.put<TodoController>(TodoController(), permanent: true);
     Get.lazyPut<TodoController>(() => TodoController());
+    //  Get.put<UserController>(UserController(), permanent: true);
     Get.lazyPut<UserController>(() => UserController());
   }
 }

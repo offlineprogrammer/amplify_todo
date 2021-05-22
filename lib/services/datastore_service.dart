@@ -37,6 +37,16 @@ class DataStoreService {
     }
   }
 
+  Future<void> removeTodo(Todo todo) async {
+    try {
+      await Amplify.DataStore.delete(todo);
+      print('deleted');
+    } catch (e) {
+      print('error');
+      throw e;
+    }
+  }
+
   Future<void> saveTodo(Todo todo) async {
     try {
       await Amplify.DataStore.save(todo);
