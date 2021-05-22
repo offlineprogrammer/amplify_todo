@@ -44,12 +44,16 @@ class TodoController extends GetxController {
   }
 
   Future<void> removeTodo(Todo todo) async {
-    AuthUser _authUser = await _authService.getCurrentUser();
-
     await _datastoreService.removeTodo(todo);
     print(todoList.length);
     todoList.remove(todo);
 
     print(todoList.length);
+  }
+
+  Future<void> setToDoDone(Todo todo, bool newValue) async {
+    await _datastoreService.setToDoDone(todo, newValue);
+    todoList[todoList.indexWhere((element) => element.id == todo.id)] =
+        todo.copyWith(isDone: newValue);
   }
 }

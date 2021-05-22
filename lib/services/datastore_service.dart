@@ -56,4 +56,10 @@ class DataStoreService {
       throw e;
     }
   }
+
+  Future<void> setToDoDone(Todo todo, bool newValue) async {
+    Todo todoData = (await Amplify.DataStore.query(Todo.classType,
+        where: Todo.ID.eq(todo.id)))[0];
+    await Amplify.DataStore.save(todoData.copyWith(isDone: newValue));
+  }
 }

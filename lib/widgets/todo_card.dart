@@ -38,7 +38,9 @@ class TodoCard extends StatelessWidget {
         child: ListTile(
           leading: Checkbox(
             value: todo.isDone,
-            onChanged: (newValue) {},
+            onChanged: (newValue) {
+              _todocontroller.setToDoDone(todo, newValue);
+            },
           ),
           trailing: Icon(
             Icons.arrow_forward_ios,
