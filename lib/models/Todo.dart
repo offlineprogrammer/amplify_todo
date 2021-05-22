@@ -15,7 +15,6 @@
 
 // ignore_for_file: public_member_api_docs
 
-import 'ModelProvider.dart';
 import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
 import 'package:flutter/foundation.dart';
 
@@ -28,7 +27,7 @@ class Todo extends Model {
   final String description;
   final TemporalTimestamp createdAt;
   final TemporalTimestamp updatedAt;
-  final TodoStatus status;
+  final bool isDone;
   final String userId;
 
   @override
@@ -45,7 +44,7 @@ class Todo extends Model {
       this.description,
       this.createdAt,
       this.updatedAt,
-      @required this.status,
+      this.isDone,
       this.userId});
 
   factory Todo(
@@ -54,7 +53,7 @@ class Todo extends Model {
       String description,
       TemporalTimestamp createdAt,
       TemporalTimestamp updatedAt,
-      @required TodoStatus status,
+      bool isDone,
       String userId}) {
     return Todo._internal(
         id: id == null ? UUID.getUUID() : id,
@@ -62,7 +61,7 @@ class Todo extends Model {
         description: description,
         createdAt: createdAt,
         updatedAt: updatedAt,
-        status: status,
+        isDone: isDone,
         userId: userId);
   }
 
@@ -79,7 +78,7 @@ class Todo extends Model {
         description == other.description &&
         createdAt == other.createdAt &&
         updatedAt == other.updatedAt &&
-        status == other.status &&
+        isDone == other.isDone &&
         userId == other.userId;
   }
 
@@ -101,7 +100,7 @@ class Todo extends Model {
         (updatedAt != null ? updatedAt.toString() : "null") +
         ", ");
     buffer.write(
-        "status=" + (status != null ? enumToString(status) : "null") + ", ");
+        "isDone=" + (isDone != null ? isDone.toString() : "null") + ", ");
     buffer.write("userId=" + "$userId");
     buffer.write("}");
 
@@ -114,7 +113,7 @@ class Todo extends Model {
       String description,
       TemporalTimestamp createdAt,
       TemporalTimestamp updatedAt,
-      TodoStatus status,
+      bool isDone,
       String userId}) {
     return Todo(
         id: id ?? this.id,
@@ -122,7 +121,7 @@ class Todo extends Model {
         description: description ?? this.description,
         createdAt: createdAt ?? this.createdAt,
         updatedAt: updatedAt ?? this.updatedAt,
-        status: status ?? this.status,
+        isDone: isDone ?? this.isDone,
         userId: userId ?? this.userId);
   }
 
@@ -136,7 +135,7 @@ class Todo extends Model {
         updatedAt = json['updatedAt'] != null
             ? TemporalTimestamp.fromSeconds(json['updatedAt'])
             : null,
-        status = enumFromString<TodoStatus>(json['status'], TodoStatus.values),
+        isDone = json['isDone'],
         userId = json['userId'];
 
   Map<String, dynamic> toJson() => {
@@ -145,7 +144,7 @@ class Todo extends Model {
         'description': description,
         'createdAt': createdAt?.toSeconds(),
         'updatedAt': updatedAt?.toSeconds(),
-        'status': enumToString(status),
+        'isDone': isDone,
         'userId': userId
       };
 
@@ -154,7 +153,7 @@ class Todo extends Model {
   static final QueryField DESCRIPTION = QueryField(fieldName: "description");
   static final QueryField CREATEDAT = QueryField(fieldName: "createdAt");
   static final QueryField UPDATEDAT = QueryField(fieldName: "updatedAt");
-  static final QueryField STATUS = QueryField(fieldName: "status");
+  static final QueryField ISDONE = QueryField(fieldName: "isDone");
   static final QueryField USERID = QueryField(fieldName: "userId");
   static var schema =
       Model.defineSchema(define: (ModelSchemaDefinition modelSchemaDefinition) {
@@ -184,9 +183,9 @@ class Todo extends Model {
         ofType: ModelFieldType(ModelFieldTypeEnum.timestamp)));
 
     modelSchemaDefinition.addField(ModelFieldDefinition.field(
-        key: Todo.STATUS,
-        isRequired: true,
-        ofType: ModelFieldType(ModelFieldTypeEnum.enumeration)));
+        key: Todo.ISDONE,
+        isRequired: false,
+        ofType: ModelFieldType(ModelFieldTypeEnum.bool)));
 
     modelSchemaDefinition.addField(ModelFieldDefinition.field(
         key: Todo.USERID,

@@ -60,10 +60,23 @@ class AuthService {
         password: password.trim(),
       );
 
+      await saveUser(email);
+
       return res.isSignedIn;
     } catch (e) {
       throw e;
     }
+  }
+
+  Future saveUser(String email) async {
+    AuthUser authUser = await Amplify.Auth.getCurrentUser();
+    Users user = new Users(
+        id: authUser.userId,
+        username: email,
+        email: email,
+        isVerified: true,
+        createdAt: TemporalTimestamp.now());
+    await _dataStoreService.saveUser(user);
   }
 
   Future<bool> confirmRegisterWithCode(
@@ -74,14 +87,7 @@ class AuthService {
 
       if (res.isSignUpComplete) {
         final signInRes = await signInWithEmailAndPassword(email, password);
-        AuthUser authUser = await Amplify.Auth.getCurrentUser();
-        Users user = new Users(
-            id: authUser.userId,
-            username: email,
-            email: email,
-            isVerified: true,
-            createdAt: TemporalTimestamp.now());
-        await _dataStoreService.saveUser(user);
+        await saveUser(email);
         return signInRes;
       }
     } catch (e) {

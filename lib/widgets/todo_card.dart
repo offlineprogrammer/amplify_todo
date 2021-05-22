@@ -36,13 +36,9 @@ class TodoCard extends StatelessWidget {
         color: Color(0xffFABB27),
         margin: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
         child: ListTile(
-          leading: IconButton(
-            onPressed: () {},
-            icon: Icon(
-              Icons.check_circle,
-              size: 35,
-              color: Colors.green[900],
-            ),
+          leading: Checkbox(
+            value: todo.isDone,
+            onChanged: (newValue) {},
           ),
           trailing: Icon(
             Icons.arrow_forward_ios,

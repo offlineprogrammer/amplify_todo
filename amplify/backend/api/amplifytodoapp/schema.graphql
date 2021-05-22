@@ -4,14 +4,8 @@ type Todo @model {
   description: String
   createdAt: AWSTimestamp
   updatedAt: AWSTimestamp
-  status: TodoStatus!
+  isDone: Boolean
   userId: String
-}
-
-enum TodoStatus {
-  NEW
-  INPROGRESS
-  DONE
 }
 
 type Users @model {

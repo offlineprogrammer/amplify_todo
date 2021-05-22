@@ -20,12 +20,11 @@ import 'Todo.dart';
 import 'Users.dart';
 
 export 'Todo.dart';
-export 'TodoStatus.dart';
 export 'Users.dart';
 
 class ModelProvider implements ModelProviderInterface {
   @override
-  String version = "65ee995779636338943dd20db657856c";
+  String version = "09e16778e863c9cca40efa838304e286";
   @override
   List<ModelSchema> modelSchemas = [Todo.schema, Users.schema];
   static final ModelProvider _instance = ModelProvider();

@@ -30,7 +30,7 @@ class TodoController extends GetxController {
     AuthUser _authUser = await _authService.getCurrentUser();
     Todo todo = new Todo(
         name: todovalueController.text.toString(),
-        status: TodoStatus.NEW,
+        isDone: false,
         createdAt: TemporalTimestamp.now(),
         updatedAt: TemporalTimestamp.now(),
         description: todovalueController.text,

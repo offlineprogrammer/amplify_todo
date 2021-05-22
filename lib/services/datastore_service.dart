@@ -5,7 +5,9 @@ import 'package:amplify_todo/models/Users.dart';
 class DataStoreService {
   Future<void> saveUser(Users user) async {
     try {
-      await Amplify.DataStore.save(user);
+      if (await getUser(user.id) == null) {
+        await Amplify.DataStore.save(user);
+      }
     } catch (e) {
       throw e;
     }
