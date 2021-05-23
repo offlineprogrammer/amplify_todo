@@ -24,7 +24,6 @@ class Todo extends Model {
   static const classType = const _TodoModelType();
   final String id;
   final String name;
-  final String description;
   final TemporalTimestamp createdAt;
   final TemporalTimestamp updatedAt;
   final bool isDone;
@@ -41,7 +40,6 @@ class Todo extends Model {
   const Todo._internal(
       {@required this.id,
       @required this.name,
-      this.description,
       this.createdAt,
       this.updatedAt,
       this.isDone,
@@ -50,7 +48,6 @@ class Todo extends Model {
   factory Todo(
       {String id,
       @required String name,
-      String description,
       TemporalTimestamp createdAt,
       TemporalTimestamp updatedAt,
       bool isDone,
@@ -58,7 +55,6 @@ class Todo extends Model {
     return Todo._internal(
         id: id == null ? UUID.getUUID() : id,
         name: name,
-        description: description,
         createdAt: createdAt,
         updatedAt: updatedAt,
         isDone: isDone,
@@ -75,7 +71,6 @@ class Todo extends Model {
     return other is Todo &&
         id == other.id &&
         name == other.name &&
-        description == other.description &&
         createdAt == other.createdAt &&
         updatedAt == other.updatedAt &&
         isDone == other.isDone &&
@@ -92,7 +87,6 @@ class Todo extends Model {
     buffer.write("Todo {");
     buffer.write("id=" + "$id" + ", ");
     buffer.write("name=" + "$name" + ", ");
-    buffer.write("description=" + "$description" + ", ");
     buffer.write("createdAt=" +
         (createdAt != null ? createdAt.toString() : "null") +
         ", ");
@@ -110,7 +104,6 @@ class Todo extends Model {
   Todo copyWith(
       {String id,
       String name,
-      String description,
       TemporalTimestamp createdAt,
       TemporalTimestamp updatedAt,
       bool isDone,
@@ -118,7 +111,6 @@ class Todo extends Model {
     return Todo(
         id: id ?? this.id,
         name: name ?? this.name,
-        description: description ?? this.description,
         createdAt: createdAt ?? this.createdAt,
         updatedAt: updatedAt ?? this.updatedAt,
         isDone: isDone ?? this.isDone,
@@ -128,7 +120,6 @@ class Todo extends Model {
   Todo.fromJson(Map<String, dynamic> json)
       : id = json['id'],
         name = json['name'],
-        description = json['description'],
         createdAt = json['createdAt'] != null
             ? TemporalTimestamp.fromSeconds(json['createdAt'])
             : null,
@@ -141,7 +132,6 @@ class Todo extends Model {
   Map<String, dynamic> toJson() => {
         'id': id,
         'name': name,
-        'description': description,
         'createdAt': createdAt?.toSeconds(),
         'updatedAt': updatedAt?.toSeconds(),
         'isDone': isDone,
@@ -150,7 +140,6 @@ class Todo extends Model {
 
   static final QueryField ID = QueryField(fieldName: "todo.id");
   static final QueryField NAME = QueryField(fieldName: "name");
-  static final QueryField DESCRIPTION = QueryField(fieldName: "description");
   static final QueryField CREATEDAT = QueryField(fieldName: "createdAt");
   static final QueryField UPDATEDAT = QueryField(fieldName: "updatedAt");
   static final QueryField ISDONE = QueryField(fieldName: "isDone");
@@ -165,11 +154,6 @@ class Todo extends Model {
     modelSchemaDefinition.addField(ModelFieldDefinition.field(
         key: Todo.NAME,
         isRequired: true,
-        ofType: ModelFieldType(ModelFieldTypeEnum.string)));
-
-    modelSchemaDefinition.addField(ModelFieldDefinition.field(
-        key: Todo.DESCRIPTION,
-        isRequired: false,
         ofType: ModelFieldType(ModelFieldTypeEnum.string)));
 
     modelSchemaDefinition.addField(ModelFieldDefinition.field(

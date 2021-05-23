@@ -33,7 +33,7 @@ class TodoCard extends StatelessWidget {
       ),
       key: ValueKey(todo.id),
       child: Card(
-        color: Color(0xffFABB27),
+        //   color: Color(0xffFABB27),
         margin: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
         child: ListTile(
           leading: Checkbox(
@@ -44,12 +44,12 @@ class TodoCard extends StatelessWidget {
           ),
           trailing: Icon(
             Icons.arrow_forward_ios,
-            color: Colors.white,
+            color: Colors.black,
           ),
           title: Text(
             todo.name,
             style: TextStyle(
-              color: Colors.white,
+              color: Colors.black,
               fontSize: 15,
               fontWeight: FontWeight.bold,
             ),
@@ -62,7 +62,8 @@ class TodoCard extends StatelessWidget {
                     DateTime.fromMillisecondsSinceEpoch(
                         todo.createdAt.toSeconds() * 1000)),
                 style: TextStyle(
-                  color: Colors.white,
+                  color: Colors.grey,
+                  fontSize: 10,
                 ),
               ),
             ],

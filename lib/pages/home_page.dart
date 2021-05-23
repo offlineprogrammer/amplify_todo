@@ -36,54 +36,60 @@ class HomePage extends StatelessWidget {
             ),
           ],
         ),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            Get.dialog(AlertDialog(
+              title: Text('Add Todo here'),
+              content: TextFormField(
+                controller: _todocontroller.todoTitleController,
+                decoration: InputDecoration(hintText: "Title"),
+              ),
+              actions: [
+                TextButton(
+                  child: Text('OK'),
+                  onPressed: () async {
+                    if (_todocontroller.todoTitleController.text != "") {
+                      await _todocontroller.addTodo();
+                      _todocontroller.todoTitleController.clear();
+                    }
+                    Get.back();
+                  },
+                ),
+              ],
+            ));
+          },
+          tooltip: 'Increment',
+          child: Icon(Icons.add),
+        ),
         body: Padding(
           padding: EdgeInsets.all(16),
           child: Column(
             //mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
+              Container(
+                color: Color(0xffE1E5E4),
+                height: 150,
+                child: Image.asset(
+                  'images/applogo.png',
+                  fit: BoxFit.contain,
+                ),
+              ),
+
               SizedBox(
                 height: 20,
-              ),
-              Text(
-                "Add Todo Here:",
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
-              Card(
-                margin: EdgeInsets.all(20),
-                child: Padding(
-                  padding: const EdgeInsets.all(10.0),
-                  child: Row(
-                    children: [
-                      Expanded(
-                        child: TextFormField(
-                          controller: _todocontroller.todovalueController,
-                        ),
-                      ),
-                      IconButton(
-                        icon: Icon(Icons.add),
-                        onPressed: () async {
-                          if (_todocontroller.todovalueController.text != "") {
-                            await _todocontroller.addTodo();
-                            _todocontroller.todovalueController.clear();
-                          }
-                        },
-                      )
-                    ],
-                  ),
-                ),
               ),
 
               Text(
                 "Your Todos",
+                textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
                 ),
+              ),
+              SizedBox(
+                height: 8,
               ),
               Obx(
                 () => Expanded(
@@ -91,13 +97,6 @@ class HomePage extends StatelessWidget {
                     itemCount: _todocontroller.todoList.length,
                     itemBuilder: (_, index) {
                       return TodoCard(todo: _todocontroller.todoList[index]);
-
-                      // ListTile(
-                      //   title: Text(
-                      //     _todocontroller.todoList[index].id.toString(),
-                      //     style: TextStyle(color: Colors.black),
-                      //   ),
-                      // );
                     },
                   ),
                 ),

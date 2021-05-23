@@ -1,7 +1,6 @@
 type Todo @model {
   id: ID!
   name: String!
-  description: String
   createdAt: AWSTimestamp
   updatedAt: AWSTimestamp
   isDone: Boolean

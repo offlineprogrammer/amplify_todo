@@ -14,7 +14,7 @@ class LoadingPage extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: <Widget>[
+            children: [
               Container(
                 color: Color(0xffE1E5E4),
                 // height: 200,

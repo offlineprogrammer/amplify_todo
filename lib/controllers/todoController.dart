@@ -11,7 +11,8 @@ class TodoController extends GetxController {
   static TodoController to = Get.find();
   DataStoreService _datastoreService = DataStoreService();
   AuthService _authService = AuthService();
-  final TextEditingController todovalueController = TextEditingController();
+  final TextEditingController todoTitleController = TextEditingController();
+
   List<Todo> todoList = <Todo>[].obs;
 
   @override
@@ -23,17 +24,17 @@ class TodoController extends GetxController {
 
   Future<void> getTodos() async {
     AuthUser _authUser = await _authService.getCurrentUser();
-    todoList.addAll(await _datastoreService.getTodos(_authUser.userId));
+    List<Todo> _list = await _datastoreService.getTodos(_authUser.userId);
+    todoList.addAllIf(_list != null, _list);
   }
 
   Future<void> addTodo() async {
     AuthUser _authUser = await _authService.getCurrentUser();
     Todo todo = new Todo(
-        name: todovalueController.text.toString(),
+        name: todoTitleController.text.toString(),
         isDone: false,
         createdAt: TemporalTimestamp.now(),
         updatedAt: TemporalTimestamp.now(),
-        description: todovalueController.text,
         userId: _authUser.userId);
     print(todo.toString());
     await _datastoreService.saveTodo(todo);
