@@ -8,12 +8,24 @@ class UserController extends GetxController {
   static UserController to = Get.find();
   DataStoreService _datastoreService = DataStoreService();
   AuthService _authService = AuthService();
-  Rx<Users> currentUser = Users().obs;
+  final currentUser = Users().obs;
 
   Users get user => currentUser.value;
+
+  @override
+  void onInit() {
+    super.onInit();
+  }
+
+  @override
+  void onReady() {
+    getCurrUser();
+    super.onReady();
+  }
 
   Future<void> getCurrUser() async {
     AuthUser authUser = await _authService.getCurrentUser();
     currentUser.value = await _datastoreService.getUser(authUser.userId);
+    print(currentUser.value);
   }
 }

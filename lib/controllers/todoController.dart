@@ -17,7 +17,6 @@ class TodoController extends GetxController {
 
   @override
   void onReady() {
-    // called after the widget is rendered on screen
     getTodos();
     super.onReady();
   }
@@ -36,20 +35,13 @@ class TodoController extends GetxController {
         createdAt: TemporalTimestamp.now(),
         updatedAt: TemporalTimestamp.now(),
         userId: _authUser.userId);
-    print(todo.toString());
     await _datastoreService.saveTodo(todo);
-    print(todoList.length);
     todoList.add(todo);
-
-    print(todoList.length);
   }
 
   Future<void> removeTodo(Todo todo) async {
     await _datastoreService.removeTodo(todo);
-    print(todoList.length);
     todoList.remove(todo);
-
-    print(todoList.length);
   }
 
   Future<void> setToDoDone(Todo todo, bool newValue) async {

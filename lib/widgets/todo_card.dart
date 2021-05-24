@@ -11,13 +11,15 @@ class TodoCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     TodoController _todocontroller = Get.find();
+    return _buildContent(_todocontroller);
+  }
+
+  Dismissible _buildContent(TodoController _todocontroller) {
     return Dismissible(
       direction: DismissDirection.startToEnd,
       onDismissed: (DismissDirection direction) {
         if (direction == DismissDirection.startToEnd) {
           _todocontroller.removeTodo(todo);
-        } else {
-          print('Remove item');
         }
       },
       background: Container(
@@ -32,42 +34,41 @@ class TodoCard extends StatelessWidget {
         ),
       ),
       key: ValueKey(todo.id),
-      child: Card(
-        //   color: Color(0xffFABB27),
-        margin: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-        child: ListTile(
-          leading: Checkbox(
-            value: todo.isDone,
-            onChanged: (newValue) {
-              _todocontroller.setToDoDone(todo, newValue);
-            },
-          ),
-          trailing: Icon(
-            Icons.arrow_forward_ios,
+      child: _buildCard(_todocontroller),
+    );
+  }
+
+  Card _buildCard(TodoController _todocontroller) {
+    return Card(
+      margin: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+      child: ListTile(
+        leading: Checkbox(
+          value: todo.isDone,
+          onChanged: (newValue) {
+            _todocontroller.setToDoDone(todo, newValue);
+          },
+        ),
+        title: Text(
+          todo.name,
+          style: TextStyle(
             color: Colors.black,
+            fontSize: 15,
+            fontWeight: FontWeight.bold,
           ),
-          title: Text(
-            todo.name,
-            style: TextStyle(
-              color: Colors.black,
-              fontSize: 15,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          subtitle: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                DateFormat.yMMMMEEEEd().format(
-                    DateTime.fromMillisecondsSinceEpoch(
-                        todo.createdAt.toSeconds() * 1000)),
-                style: TextStyle(
-                  color: Colors.grey,
-                  fontSize: 10,
-                ),
+        ),
+        subtitle: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              DateFormat.yMMMMEEEEd().format(
+                  DateTime.fromMillisecondsSinceEpoch(
+                      todo.createdAt.toSeconds() * 1000)),
+              style: TextStyle(
+                color: Colors.grey,
+                fontSize: 10,
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

@@ -7,6 +7,7 @@ class DataStoreService {
     try {
       if (await getUser(user.id) == null) {
         await Amplify.DataStore.save(user);
+        print('Saved');
       }
     } catch (e) {
       throw e;
@@ -20,7 +21,8 @@ class DataStoreService {
       if (user.length > 0) {
         return user.first;
       } else
-        return null;
+        print('null');
+      return null;
     } catch (e) {
       throw e;
     }
@@ -42,7 +44,6 @@ class DataStoreService {
   Future<void> removeTodo(Todo todo) async {
     try {
       await Amplify.DataStore.delete(todo);
-      print('deleted');
     } catch (e) {
       print('error');
       throw e;
@@ -58,8 +59,12 @@ class DataStoreService {
   }
 
   Future<void> setToDoDone(Todo todo, bool newValue) async {
-    Todo todoData = (await Amplify.DataStore.query(Todo.classType,
-        where: Todo.ID.eq(todo.id)))[0];
-    await Amplify.DataStore.save(todoData.copyWith(isDone: newValue));
+    try {
+      Todo todoData = (await Amplify.DataStore.query(Todo.classType,
+          where: Todo.ID.eq(todo.id)))[0];
+      await Amplify.DataStore.save(todoData.copyWith(isDone: newValue));
+    } catch (e) {
+      throw e;
+    }
   }
 }

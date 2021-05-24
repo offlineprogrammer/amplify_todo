@@ -1,5 +1,4 @@
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
-import 'package:amplify_flutter/amplify.dart';
 
 import 'package:amplify_todo/services/auth_service.dart';
 
@@ -10,10 +9,10 @@ enum EmailSignInFormType { signIn, register, confirm }
 
 class AuthController extends GetxController {
   static AuthController to = Get.find();
-  //RxBool isSignedIn = false.obs;
   AuthService _authService;
   Rx<EmailSignInFormType> emailformType = EmailSignInFormType.signIn.obs;
   RxBool isLoading = false.obs;
+  RxBool isSignedIn = false.obs;
   bool submitted = false;
   RxBool submitEnabled = false.obs;
 
@@ -50,7 +49,6 @@ class AuthController extends GetxController {
 
   String get emailErrorText {
     bool showErrorText = submitted && !GetUtils.isEmail(emailController.text);
-    update();
     return showErrorText ? invalidEmailErrorText : null;
   }
 
@@ -71,9 +69,9 @@ class AuthController extends GetxController {
     try {
       switch (emailformType.value) {
         case EmailSignInFormType.signIn:
-          await _authService.signInWithEmailAndPassword(
+          isSignedIn.value = await _authService.signInWithEmailAndPassword(
               emailController.text, passwordController.text);
-          _setuplistener();
+
           // await Get.find<UserController>().getCurrUser();
           break;
         case EmailSignInFormType.register:
@@ -84,9 +82,10 @@ class AuthController extends GetxController {
           }
           break;
         case EmailSignInFormType.confirm:
-          await _authService.confirmRegisterWithCode(emailController.text,
-              passwordController.text, codeController.text);
-          _setuplistener();
+          isSignedIn.value = await _authService.confirmRegisterWithCode(
+              emailController.text,
+              passwordController.text,
+              codeController.text);
       }
     } catch (e) {
       //isLoading.value = false;
@@ -103,52 +102,15 @@ class AuthController extends GetxController {
 
   @override
   void onReady() {
-    // called after the widget is rendered on screen
     isUserSignedIn();
-    // ever(isSignedIn, handleAuthChanged);
-    _setuplistener();
-
+    ever(isSignedIn, handleAuthChanged);
     super.onReady();
-  }
-
-  void _setuplistener() {
-    Amplify.Hub.listen([HubChannel.Auth], (hubEvent) {
-      print(hubEvent.eventName);
-      switch (hubEvent.eventName) {
-        case "SIGNED_IN":
-          {
-            print("USER IS SIGNED IN");
-            //   isSignedIn.value = true;
-            Get.offAllNamed("/home");
-          }
-          break;
-        case "SIGNED_OUT":
-          {
-            print("USER IS SIGNED OUT");
-            Get.offAllNamed("/signin");
-          }
-          break;
-        case "SESSION_EXPIRED":
-          {
-            print("USER IS SIGNED IN");
-            Get.offAllNamed("/signin");
-          }
-          break;
-      }
-    });
   }
 
   void isUserSignedIn() async {
     try {
-      print('isUserSignedIn');
       isLoading.value = true;
-      _setuplistener();
-      bool _isSignedIn = await _authService.isSignedIn();
-      if (!_isSignedIn) {
-        Get.offAllNamed("/signin");
-      } else {
-        Get.offAllNamed("/home");
-      }
+      isSignedIn.value = await _authService.isSignedIn();
     } catch (e) {
       throw e;
     } finally {
@@ -167,7 +129,8 @@ class AuthController extends GetxController {
   void signIn(AuthProvider authProvider) async {
     try {
       await _authService.signIn(authProvider);
-      _setuplistener();
+      isSignedIn.value = true;
+      //_setuplistener();
     } catch (e) {
       throw e;
     }
@@ -176,7 +139,7 @@ class AuthController extends GetxController {
   void signOut() async {
     try {
       await _authService.signOut();
-      //   isSignedIn.value = false;
+      isSignedIn.value = false;
       isLoading.value = false;
     } on AuthException catch (e) {
       print(e.message);

@@ -6,11 +6,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends GetWidget<UserController> {
+  TodoController _todocontroller = Get.find();
+  AuthController _authcontroller = Get.find();
   @override
   Widget build(BuildContext context) {
-    TodoController _todocontroller = Get.find();
-    AuthController controller = Get.find();
     return Scaffold(
         backgroundColor: Color(0xffE1E5E4),
         appBar: AppBar(
@@ -19,11 +19,8 @@ class HomePage extends StatelessWidget {
               await Get.find<UserController>().getCurrUser();
             },
             builder: (_) {
-              if (_.user.email != null) {
-                return Text("Welcome " + _.user.email);
-              } else {
-                return Text("loading...");
-              }
+              return Text(controller.user?.email ?? '',
+                  style: TextStyle(fontSize: 12));
             },
           ),
           centerTitle: true,
@@ -31,7 +28,7 @@ class HomePage extends StatelessWidget {
             IconButton(
               icon: Icon(Icons.logout),
               onPressed: () {
-                controller.signOut();
+                _authcontroller.signOut();
               },
             ),
           ],
@@ -75,11 +72,9 @@ class HomePage extends StatelessWidget {
                   fit: BoxFit.contain,
                 ),
               ),
-
               SizedBox(
                 height: 20,
               ),
-
               Text(
                 "Your Todos",
                 textAlign: TextAlign.center,
@@ -101,201 +96,8 @@ class HomePage extends StatelessWidget {
                   ),
                 ),
               ),
-              // GetX<TodoController>(
-              //   initState: (_) async {
-              //     await Get.find<TodoController>().getTodos();
-              //   },
-              //   builder: (TodoController todoController) {
-              //     if (todoController != null &&
-              //         todoController.todoList != null) {
-              //       return Expanded(
-              //         child: ListView.builder(
-              //           itemCount: todoController.todoList.length,
-              //           itemBuilder: (_, index) {
-              //             return ListTile(
-              //               title: Text(todoController.todoList[index].createdAt
-              //                   .toString()),
-              //             );
-              //           },
-              //         ),
-              //       );
-              //     } else {
-              //       return Text("loading...");
-              //     }
-              //   },
-              // )
             ],
           ),
         ));
   }
 }
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return GetBuilder(
-//         init: TodoController(),
-//         builder: (todoController) {
-//           return Scaffold(
-//               appBar: AppBar(
-//                 title: GetX<UserController>(
-//                   initState: (_) async {
-//                     await Get.find<UserController>().getCurrUser();
-//                   },
-//                   builder: (_) {
-//                     if (_.user.email != null) {
-//                       return Text("Welcome " + _.user.email);
-//                     } else {
-//                       return Text("loading...");
-//                     }
-//                   },
-//                 ),
-//                 centerTitle: true,
-//                 actions: [
-//                   IconButton(
-//                     icon: Icon(Icons.lightbulb),
-//                     onPressed: () {
-//                       if (Get.isDarkMode) {
-//                         Get.changeTheme(ThemeData.light());
-//                       } else {
-//                         Get.changeTheme(ThemeData.dark());
-//                       }
-//                     },
-//                   ),
-//                   IconButton(
-//                     icon: Icon(Icons.logout),
-//                     onPressed: () {
-//                       controller.signOut();
-//                     },
-//                   ),
-//                 ],
-//               ),
-//               floatingActionButton: FloatingActionButton(
-//                 onPressed: () {
-//                   todoController.addTodo();
-//                 },
-//                 //backgroundColor: ColorConstants.appBarColor,
-//                 child: Icon(Icons.add),
-//               ),
-//               body: ListView.builder(
-//                   itemCount: todoController.todoList.value.length,
-//                   itemBuilder: (BuildContext context, int index) {
-//                     return ListTile(
-//                       title: Text(todoController.todoList.value[index].createdAt
-//                           .toString()),
-//                     );
-
-//                     //TodoListTile(todoTitle: todoController.todoItems[index]);
-//                   }));
-//         });
-//   }
-// }
-
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//         appBar: AppBar(
-//           title: GetX<UserController>(
-//             initState: (_) async {
-//               await Get.find<UserController>().getCurrUser();
-//             },
-//             builder: (_) {
-//               if (_.user.email != null) {
-//                 return Text("Welcome " + _.user.email);
-//               } else {
-//                 return Text("loading...");
-//               }
-//             },
-//           ),
-//           centerTitle: true,
-//           actions: [
-//             IconButton(
-//               icon: Icon(Icons.lightbulb),
-//               onPressed: () {
-//                 if (Get.isDarkMode) {
-//                   Get.changeTheme(ThemeData.light());
-//                 } else {
-//                   Get.changeTheme(ThemeData.dark());
-//                 }
-//               },
-//             ),
-//             IconButton(
-//               icon: Icon(Icons.logout),
-//               onPressed: () {
-//                 controller.signOut();
-//               },
-//             ),
-//           ],
-//         ),
-//         body: Padding(
-//           padding: EdgeInsets.all(16),
-//           child: Column(
-//             //mainAxisAlignment: MainAxisAlignment.center,
-//             crossAxisAlignment: CrossAxisAlignment.stretch,
-//             children: [
-//               SizedBox(
-//                 height: 20,
-//               ),
-//               Text(
-//                 "Add Todo Here:",
-//                 textAlign: TextAlign.center,
-//                 style: TextStyle(
-//                   fontSize: 20,
-//                   fontWeight: FontWeight.w600,
-//                 ),
-//               ),
-//               Card(
-//                 margin: EdgeInsets.all(20),
-//                 child: Padding(
-//                   padding: const EdgeInsets.all(10.0),
-//                   child: Row(
-//                     children: [
-//                       Expanded(
-//                         child: TextFormField(
-//                           controller: _todocontroller.todoController,
-//                         ),
-//                       ),
-//                       IconButton(
-//                         icon: Icon(Icons.add),
-//                         onPressed: () {
-//                           if (_todocontroller.todoController.text != "") {
-//                             _todocontroller.addTodo();
-//                             _todocontroller.todoController.clear();
-//                           }
-//                         },
-//                       )
-//                     ],
-//                   ),
-//                 ),
-//               ),
-//               Text(
-//                 "Your Todos",
-//                 style: TextStyle(
-//                   fontSize: 20,
-//                   fontWeight: FontWeight.bold,
-//                 ),
-//               ),
-//               GetX<TodoController>(
-//                 init: Get.put<TodoController>(TodoController()),
-//                 builder: (TodoController todoController) {
-//                   if (todoController != null && todoController.todos != null) {
-//                     return Expanded(
-//                       child: ListView.builder(
-//                         itemCount: todoController.todoList.value.length,
-//                         itemBuilder: (_, index) {
-//                           return ListTile(
-//                             title: Text(todoController
-//                                 .todoList.value[index].createdAt
-//                                 .toString()),
-//                           );
-//                         },
-//                       ),
-//                     );
-//                   } else {
-//                     return Text("loading...");
-//                   }
-//                 },
-//               )
-//             ],
-//           ),
-//         ));
-//   }
-// }
