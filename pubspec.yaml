@@ -24,9 +24,9 @@ dependencies:
   flutter:
     sdk: flutter
   get: ^4.1.4
-  amplify_flutter: ^0.1.4
-  amplify_auth_cognito: ^0.1.4
-  amplify_datastore: ^0.1.4
+  amplify_flutter: ^0.1.5
+  amplify_auth_cognito: ^0.1.5
+  amplify_datastore: ^0.1.5
   font_awesome_flutter: ^9.0.0
   intl: ^0.17.0
 

@@ -55,7 +55,6 @@ class HomePage extends GetWidget<UserController> {
               ],
             ));
           },
-          tooltip: 'Increment',
           child: Icon(Icons.add),
         ),
         body: Padding(

@@ -1,7 +1,5 @@
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
-
 import 'package:amplify_todo/services/auth_service.dart';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -22,7 +20,6 @@ class AuthController extends GetxController {
   final FocusNode codeFocusNode = FocusNode();
   final FocusNode emailFocusNode = FocusNode();
   final FocusNode passwordFocusNode = FocusNode();
-
   final String invalidEmailErrorText = 'Email can\'t be empty';
   final String invalidPasswordErrorText = 'Password can\'t be empty';
 
@@ -71,8 +68,6 @@ class AuthController extends GetxController {
         case EmailSignInFormType.signIn:
           isSignedIn.value = await _authService.signInWithEmailAndPassword(
               emailController.text, passwordController.text);
-
-          // await Get.find<UserController>().getCurrUser();
           break;
         case EmailSignInFormType.register:
           final isSignedUp = await _authService.registerWithEmailAndPassword(
@@ -88,16 +83,10 @@ class AuthController extends GetxController {
               codeController.text);
       }
     } catch (e) {
-      //isLoading.value = false;
       rethrow;
     } finally {
       isLoading.value = false;
     }
-  }
-
-  @override
-  void onInit() {
-    super.onInit();
   }
 
   @override
