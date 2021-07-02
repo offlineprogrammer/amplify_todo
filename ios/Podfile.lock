@@ -1,64 +1,91 @@
 PODS:
-  - Amplify (1.8.0):
-    - Amplify/Default (= 1.8.0)
-  - Amplify/Default (1.8.0)
-  - amplify_auth_cognito (0.0.1):
-    - Amplify
+  - Amplify (1.11.0):
+    - Amplify/Default (= 1.11.0)
+  - Amplify/Default (1.11.0)
+  - amplify_analytics_pinpoint (0.0.1):
+    - Amplify (~> 1.11.0)
     - amplify_core
-    - AmplifyPlugins/AWSCognitoAuthPlugin
+    - AmplifyPlugins/AWSPinpointAnalyticsPlugin (~> 1.11.0)
+    - Flutter
+  - amplify_auth_cognito (0.0.1):
+    - Amplify (~> 1.11.0)
+    - amplify_core
+    - AmplifyPlugins/AWSCognitoAuthPlugin (~> 1.11.0)
     - Flutter
     - ObjectMapper
   - amplify_core (0.0.1):
     - Flutter
   - amplify_datastore (0.0.1):
-    - Amplify
+    - Amplify (~> 1.11.0)
     - amplify_core
-    - AmplifyPlugins/AWSDataStorePlugin
+    - AmplifyPlugins/AWSDataStorePlugin (~> 1.11.0)
     - Flutter
   - amplify_flutter (0.0.1):
-    - Amplify
+    - Amplify (~> 1.11.0)
     - amplify_core
-    - AmplifyPlugins/AWSCognitoAuthPlugin
-    - AWSPluginsCore
+    - AmplifyPlugins/AWSCognitoAuthPlugin (~> 1.11.0)
+    - AWSPluginsCore (~> 1.11.0)
     - Flutter
-  - AmplifyPlugins/AWSCognitoAuthPlugin (1.8.0):
-    - AWSAuthCore (~> 2.23.3)
-    - AWSCognitoIdentityProvider (~> 2.23.3)
-    - AWSCognitoIdentityProviderASF (~> 2.23.3)
-    - AWSCore (~> 2.23.3)
-    - AWSMobileClient (~> 2.23.3)
-    - AWSPluginsCore (= 1.8.0)
-  - AmplifyPlugins/AWSDataStorePlugin (1.8.0):
-    - AWSCore (~> 2.23.3)
-    - AWSPluginsCore (= 1.8.0)
-    - SQLite.swift (~> 0.12.0)
-  - AWSAuthCore (2.23.3):
-    - AWSCore (= 2.23.3)
-  - AWSCognitoIdentityProvider (2.23.3):
-    - AWSCognitoIdentityProviderASF (= 2.23.3)
-    - AWSCore (= 2.23.3)
-  - AWSCognitoIdentityProviderASF (2.23.3)
-  - AWSCore (2.23.3)
-  - AWSMobileClient (2.23.3):
-    - AWSAuthCore (= 2.23.3)
-    - AWSCognitoIdentityProvider (= 2.23.3)
-    - AWSCognitoIdentityProviderASF (= 2.23.3)
-    - AWSCore (= 2.23.3)
-  - AWSPluginsCore (1.8.0):
-    - Amplify (= 1.8.0)
-    - AWSCore (~> 2.23.3)
+  - amplify_storage_s3 (0.0.1):
+    - Amplify (~> 1.11.0)
+    - amplify_core
+    - AmplifyPlugins/AWSS3StoragePlugin (~> 1.11.0)
+    - Flutter
+  - AmplifyPlugins/AWSCognitoAuthPlugin (1.11.0):
+    - AWSAuthCore (~> 2.24.0)
+    - AWSCognitoIdentityProvider (~> 2.24.0)
+    - AWSCognitoIdentityProviderASF (~> 2.24.0)
+    - AWSCore (~> 2.24.0)
+    - AWSMobileClient (~> 2.24.0)
+    - AWSPluginsCore (= 1.11.0)
+  - AmplifyPlugins/AWSDataStorePlugin (1.11.0):
+    - AWSCore (~> 2.24.0)
+    - AWSPluginsCore (= 1.11.0)
+    - SQLite.swift (= 0.12.2)
+  - AmplifyPlugins/AWSPinpointAnalyticsPlugin (1.11.0):
+    - AWSCore (~> 2.24.0)
+    - AWSPinpoint (~> 2.24.0)
+    - AWSPluginsCore (= 1.11.0)
+  - AmplifyPlugins/AWSS3StoragePlugin (1.11.0):
+    - AWSCore (~> 2.24.0)
+    - AWSPluginsCore (= 1.11.0)
+    - AWSS3 (~> 2.24.0)
+  - AWSAuthCore (2.24.2):
+    - AWSCore (= 2.24.2)
+  - AWSCognitoIdentityProvider (2.24.2):
+    - AWSCognitoIdentityProviderASF (= 2.24.2)
+    - AWSCore (= 2.24.2)
+  - AWSCognitoIdentityProviderASF (2.24.2)
+  - AWSCore (2.24.2)
+  - AWSMobileClient (2.24.2):
+    - AWSAuthCore (= 2.24.2)
+    - AWSCognitoIdentityProvider (= 2.24.2)
+    - AWSCognitoIdentityProviderASF (= 2.24.2)
+    - AWSCore (= 2.24.2)
+  - AWSPinpoint (2.24.2):
+    - AWSCore (= 2.24.2)
+  - AWSPluginsCore (1.11.0):
+    - Amplify (= 1.11.0)
+    - AWSCore (~> 2.24.0)
+  - AWSS3 (2.24.2):
+    - AWSCore (= 2.24.2)
   - Flutter (1.0.0)
+  - image_picker (0.0.1):
+    - Flutter
   - ObjectMapper (4.2.0)
   - SQLite.swift (0.12.2):
     - SQLite.swift/standard (= 0.12.2)
   - SQLite.swift/standard (0.12.2)
 
 DEPENDENCIES:
+  - amplify_analytics_pinpoint (from `.symlinks/plugins/amplify_analytics_pinpoint/ios`)
   - amplify_auth_cognito (from `.symlinks/plugins/amplify_auth_cognito/ios`)
   - amplify_core (from `.symlinks/plugins/amplify_core/ios`)
   - amplify_datastore (from `.symlinks/plugins/amplify_datastore/ios`)
   - amplify_flutter (from `.symlinks/plugins/amplify_flutter/ios`)
+  - amplify_storage_s3 (from `.symlinks/plugins/amplify_storage_s3/ios`)
   - Flutter (from `Flutter`)
+  - image_picker (from `.symlinks/plugins/image_picker/ios`)
 
 SPEC REPOS:
   trunk:
@@ -69,11 +96,15 @@ SPEC REPOS:
     - AWSCognitoIdentityProviderASF
     - AWSCore
     - AWSMobileClient
+    - AWSPinpoint
     - AWSPluginsCore
+    - AWSS3
     - ObjectMapper
     - SQLite.swift
 
 EXTERNAL SOURCES:
+  amplify_analytics_pinpoint:
+    :path: ".symlinks/plugins/amplify_analytics_pinpoint/ios"
   amplify_auth_cognito:
     :path: ".symlinks/plugins/amplify_auth_cognito/ios"
   amplify_core:
@@ -82,23 +113,32 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/amplify_datastore/ios"
   amplify_flutter:
     :path: ".symlinks/plugins/amplify_flutter/ios"
+  amplify_storage_s3:
+    :path: ".symlinks/plugins/amplify_storage_s3/ios"
   Flutter:
     :path: Flutter
+  image_picker:
+    :path: ".symlinks/plugins/image_picker/ios"
 
 SPEC CHECKSUMS:
-  Amplify: 550f9e628e68f829ee4d9daa802912ad3644cb96
-  amplify_auth_cognito: 2e090a788d0ba4e08f6438170b1e7aac872782b4
+  Amplify: cf25ee17b0762b3bacd4d4d49891ddada6bee912
+  amplify_analytics_pinpoint: 883dfa68ed6688c0c75c9b8f1733da7a0f5e2e94
+  amplify_auth_cognito: 38761b51a433d49ecf5927de45488fcbf81a8c29
   amplify_core: 8b38d20089fe4f225c14db6892f586bd03824a42
-  amplify_datastore: e73979905bbee5c192e59f6afcd4e0692c3132bf
-  amplify_flutter: d64b45e3a016e491bbb2e110fee57e150daf2164
-  AmplifyPlugins: 3ed478220b60e5544f3a4968beb971b4d8abcb34
-  AWSAuthCore: 2aaf8dec7f50e3f7606857bdca0db9263faed0c5
-  AWSCognitoIdentityProvider: fcd9b00fec0ef5ac6768548af948ad033b52da98
-  AWSCognitoIdentityProviderASF: 719578cca39b3233bd67e656bdf04d409e8fc255
-  AWSCore: c60e635b1a61cb27b6dfff646ce9f402be870b62
-  AWSMobileClient: bdfc148fc11b846331f2bec4a7063c95e66c329e
-  AWSPluginsCore: 6305f711ed8d967ba3b46e272cdad8f857e2ed4a
+  amplify_datastore: c0f2bcf9410731862612c986a9f331cb4f8691e4
+  amplify_flutter: 77665b732c1b8d04ed7f3eeb5a743f0b75838db1
+  amplify_storage_s3: 703f62456f65b84aed6f29d73427ed5581056c00
+  AmplifyPlugins: bb73475de41297a7244e8f3fdbf40cdad8115048
+  AWSAuthCore: d2cb921db598ea03d67284977a3c691e9a1aee83
+  AWSCognitoIdentityProvider: f9d68c563718fa5aa76e077752df06c73810efba
+  AWSCognitoIdentityProviderASF: 21681469334e286df6e5470f3cbab3b10edbf818
+  AWSCore: 08a61ac2b1d98b2d43f59ee40c4bd68e58dfdea3
+  AWSMobileClient: 6af7fff9e58f8d427acf3381cbbae2f0c34d52ab
+  AWSPinpoint: a422ed2d24e0cc94499aaf60e2fbb7666954c8bf
+  AWSPluginsCore: 1670f03a8612d60bd84c541ffa34f538e4037052
+  AWSS3: 1782d0db43a1219a118ea6263d4ea01f76f8cdf4
   Flutter: 434fef37c0980e73bb6479ef766c45957d4b510c
+  image_picker: e06f7a68f000bd36f552c1847e33cda96ed31f1f
   ObjectMapper: 1eb41f610210777375fa806bf161dc39fb832b81
   SQLite.swift: d2b4642190917051ce6bd1d49aab565fe794eea3
 

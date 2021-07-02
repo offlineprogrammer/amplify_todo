@@ -76,7 +76,9 @@ class AuthService {
         username: email,
         email: email,
         isVerified: true,
-        createdAt: TemporalTimestamp.now());
+        createdAt: TemporalDateTime.now(),
+        imageKey: '',
+        imageUrl: '');
     await _dataStoreService.saveUser(user);
   }
 

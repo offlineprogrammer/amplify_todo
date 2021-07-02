@@ -60,9 +60,7 @@ class TodoCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              DateFormat.yMMMMEEEEd().format(
-                  DateTime.fromMillisecondsSinceEpoch(
-                      todo.createdAt.toSeconds() * 1000)),
+              DateFormat.yMMMMEEEEd().format(todo.createdAt.getDateTimeInUtc()),
               style: TextStyle(
                 color: Colors.grey,
                 fontSize: 10,

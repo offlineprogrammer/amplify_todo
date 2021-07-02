@@ -24,5 +24,17 @@
         }
       }
     }
+  },
+  "analytics": {
+    "amplifytodoapp": {
+      "service": "Pinpoint",
+      "providerPlugin": "awscloudformation"
+    }
+  },
+  "storage": {
+    "s385ebe3d5": {
+      "service": "S3",
+      "providerPlugin": "awscloudformation"
+    }
   }
 }

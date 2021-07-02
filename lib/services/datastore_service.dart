@@ -5,10 +5,7 @@ import 'package:amplify_todo/models/Users.dart';
 class DataStoreService {
   Future<void> saveUser(Users user) async {
     try {
-      if (await getUser(user.id) == null) {
-        await Amplify.DataStore.save(user);
-        print('Saved');
-      }
+      await Amplify.DataStore.save(user);
     } catch (e) {
       throw e;
     }
@@ -45,7 +42,6 @@ class DataStoreService {
     try {
       await Amplify.DataStore.delete(todo);
     } catch (e) {
-      print('error');
       throw e;
     }
   }

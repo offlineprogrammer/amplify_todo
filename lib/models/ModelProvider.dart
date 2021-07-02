@@ -1,5 +1,5 @@
 /*
-* Copyright 2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+* Copyright 2021 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 *
 * Licensed under the Apache License, Version 2.0 (the "License").
 * You may not use this file except in compliance with the License.
@@ -24,7 +24,7 @@ export 'Users.dart';
 
 class ModelProvider implements ModelProviderInterface {
   @override
-  String version = "07acf8775fcd663c7550b49f0090f8a3";
+  String version = "3698b77bc12dd60cac275fa34d4ba22b";
   @override
   List<ModelSchema> modelSchemas = [Todo.schema, Users.schema];
   static final ModelProvider _instance = ModelProvider();

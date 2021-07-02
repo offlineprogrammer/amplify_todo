@@ -1,18 +1,22 @@
-type Todo @model {
+type Todo @model @auth(rules: [{allow: public}]) @key(name: "byUser", fields: ["userId"]) {
   id: ID!
   name: String!
-  createdAt: AWSTimestamp
-  updatedAt: AWSTimestamp
+  createdAt: AWSDateTime
+  updatedAt: AWSDateTime
   isDone: Boolean
-  userId: String
+  userId: ID!
 }
 
-type Users @model {
+type Users @model  @auth(rules: [{allow: public}]) {
   id: ID!
   username: String
   email: AWSEmail
+  imageKey: String!
+  imageUrl: String!
   isVerified: Boolean
-  createdAt: AWSTimestamp
+  createdAt: AWSDateTime
+  todos: [Todo] @connection(keyName: "byUser", fields: ["id"])
+
 }
  
 

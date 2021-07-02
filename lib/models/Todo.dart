@@ -1,5 +1,5 @@
 /*
-* Copyright 2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+* Copyright 2021 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 *
 * Licensed under the Apache License, Version 2.0 (the "License").
 * You may not use this file except in compliance with the License.
@@ -24,8 +24,8 @@ class Todo extends Model {
   static const classType = const _TodoModelType();
   final String id;
   final String name;
-  final TemporalTimestamp createdAt;
-  final TemporalTimestamp updatedAt;
+  final TemporalDateTime createdAt;
+  final TemporalDateTime updatedAt;
   final bool isDone;
   final String userId;
 
@@ -43,15 +43,15 @@ class Todo extends Model {
       this.createdAt,
       this.updatedAt,
       this.isDone,
-      this.userId});
+      @required this.userId});
 
   factory Todo(
       {String id,
       @required String name,
-      TemporalTimestamp createdAt,
-      TemporalTimestamp updatedAt,
+      TemporalDateTime createdAt,
+      TemporalDateTime updatedAt,
       bool isDone,
-      String userId}) {
+      @required String userId}) {
     return Todo._internal(
         id: id == null ? UUID.getUUID() : id,
         name: name,
@@ -88,10 +88,10 @@ class Todo extends Model {
     buffer.write("id=" + "$id" + ", ");
     buffer.write("name=" + "$name" + ", ");
     buffer.write("createdAt=" +
-        (createdAt != null ? createdAt.toString() : "null") +
+        (createdAt != null ? createdAt.format() : "null") +
         ", ");
     buffer.write("updatedAt=" +
-        (updatedAt != null ? updatedAt.toString() : "null") +
+        (updatedAt != null ? updatedAt.format() : "null") +
         ", ");
     buffer.write(
         "isDone=" + (isDone != null ? isDone.toString() : "null") + ", ");
@@ -104,8 +104,8 @@ class Todo extends Model {
   Todo copyWith(
       {String id,
       String name,
-      TemporalTimestamp createdAt,
-      TemporalTimestamp updatedAt,
+      TemporalDateTime createdAt,
+      TemporalDateTime updatedAt,
       bool isDone,
       String userId}) {
     return Todo(
@@ -121,10 +121,10 @@ class Todo extends Model {
       : id = json['id'],
         name = json['name'],
         createdAt = json['createdAt'] != null
-            ? TemporalTimestamp.fromSeconds(json['createdAt'])
+            ? TemporalDateTime.fromString(json['createdAt'])
             : null,
         updatedAt = json['updatedAt'] != null
-            ? TemporalTimestamp.fromSeconds(json['updatedAt'])
+            ? TemporalDateTime.fromString(json['updatedAt'])
             : null,
         isDone = json['isDone'],
         userId = json['userId'];
@@ -132,8 +132,8 @@ class Todo extends Model {
   Map<String, dynamic> toJson() => {
         'id': id,
         'name': name,
-        'createdAt': createdAt?.toSeconds(),
-        'updatedAt': updatedAt?.toSeconds(),
+        'createdAt': createdAt?.format(),
+        'updatedAt': updatedAt?.format(),
         'isDone': isDone,
         'userId': userId
       };
@@ -149,6 +149,15 @@ class Todo extends Model {
     modelSchemaDefinition.name = "Todo";
     modelSchemaDefinition.pluralName = "Todos";
 
+    modelSchemaDefinition.authRules = [
+      AuthRule(authStrategy: AuthStrategy.PUBLIC, operations: [
+        ModelOperation.CREATE,
+        ModelOperation.UPDATE,
+        ModelOperation.DELETE,
+        ModelOperation.READ
+      ])
+    ];
+
     modelSchemaDefinition.addField(ModelFieldDefinition.id());
 
     modelSchemaDefinition.addField(ModelFieldDefinition.field(
@@ -159,12 +168,12 @@ class Todo extends Model {
     modelSchemaDefinition.addField(ModelFieldDefinition.field(
         key: Todo.CREATEDAT,
         isRequired: false,
-        ofType: ModelFieldType(ModelFieldTypeEnum.timestamp)));
+        ofType: ModelFieldType(ModelFieldTypeEnum.dateTime)));
 
     modelSchemaDefinition.addField(ModelFieldDefinition.field(
         key: Todo.UPDATEDAT,
         isRequired: false,
-        ofType: ModelFieldType(ModelFieldTypeEnum.timestamp)));
+        ofType: ModelFieldType(ModelFieldTypeEnum.dateTime)));
 
     modelSchemaDefinition.addField(ModelFieldDefinition.field(
         key: Todo.ISDONE,
@@ -173,7 +182,7 @@ class Todo extends Model {
 
     modelSchemaDefinition.addField(ModelFieldDefinition.field(
         key: Todo.USERID,
-        isRequired: false,
+        isRequired: true,
         ofType: ModelFieldType(ModelFieldTypeEnum.string)));
   });
 }
