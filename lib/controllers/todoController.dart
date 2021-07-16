@@ -25,8 +25,10 @@ class TodoController extends GetxController {
 
   Future<void> getTodos() async {
     AuthUser _authUser = await _authService.getCurrentUser();
-    List<Todo> _list = await _datastoreService.getTodos(_authUser.userId);
-    todoList.addAllIf(_list != null, _list);
+    List<Todo>? _list = await _datastoreService.getTodos(_authUser.userId);
+    if (_list != null) {
+      todoList.addAll(_list);
+    }
   }
 
   Future<void> addTodo() async {

@@ -13,13 +13,13 @@ class SocialSignInButton extends StatelessWidget {
   final Buttons button;
 
   const SocialSignInButton({
-    Key key,
-    @required this.color,
-    @required this.onPressed,
+    Key? key,
+    required this.color,
+    required this.onPressed,
     this.height: 50,
-    @required this.button,
-    @required this.text,
-    @required this.textColor,
+    required this.button,
+    required this.text,
+    required this.textColor,
   }) : super(key: key);
   @override
   Widget build(BuildContext context) {

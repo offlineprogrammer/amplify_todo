@@ -82,7 +82,7 @@ class AuthService {
     await _dataStoreService.saveUser(user);
   }
 
-  Future<bool> confirmRegisterWithCode(
+  Future<bool?> confirmRegisterWithCode(
       String email, String password, String code) async {
     try {
       SignUpResult res = await Amplify.Auth.confirmSignUp(

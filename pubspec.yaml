@@ -18,18 +18,18 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 version: 1.0.0+1
 
 environment:
-  sdk: ">=2.7.0 <3.0.0"
+  sdk: ">=2.12.0 <3.0.0"
 
 dependencies:
   flutter:
     sdk: flutter
   get: ^4.1.4
-  amplify_flutter: ^0.1.6
-  amplify_auth_cognito: ^0.1.6
-  amplify_datastore: ^0.1.6
-  amplify_analytics_pinpoint: ^0.1.6
+  amplify_flutter: ^0.2.0
+  amplify_auth_cognito: ^0.2.0
+  amplify_datastore: ^0.2.0
+  amplify_analytics_pinpoint: ^0.2.0
   font_awesome_flutter: ^9.0.0
-  amplify_storage_s3: ^0.1.6
+  amplify_storage_s3: ^0.2.0
   intl: ^0.17.0
   image_picker: ^0.8.0+3
   uuid: ^3.0.4

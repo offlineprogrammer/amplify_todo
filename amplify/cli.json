@@ -20,7 +20,8 @@
             "usedocsgeneratorplugin": true,
             "usetypesgeneratorplugin": true,
             "cleangeneratedmodelsdirectory": true,
-            "retaincasestyle": true
+            "retaincasestyle": true,
+            "enableDartNullSafety": true
         },
         "appsync": {
             "generategraphqlpermissions": true

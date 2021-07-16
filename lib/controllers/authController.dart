@@ -7,7 +7,7 @@ enum EmailSignInFormType { signIn, register, confirm }
 
 class AuthController extends GetxController {
   static AuthController to = Get.find();
-  AuthService _authService;
+  AuthService _authService = AuthService();
   Rx<EmailSignInFormType> emailformType = EmailSignInFormType.signIn.obs;
   RxBool isLoading = false.obs;
   RxBool isSignedIn = false.obs;
@@ -22,10 +22,6 @@ class AuthController extends GetxController {
   final FocusNode passwordFocusNode = FocusNode();
   final String invalidEmailErrorText = 'Email can\'t be empty';
   final String invalidPasswordErrorText = 'Password can\'t be empty';
-
-  AuthController() {
-    _authService = AuthService();
-  }
 
   String get primaryButtonText {
     switch (emailformType.value) {
@@ -44,7 +40,7 @@ class AuthController extends GetxController {
         : 'Have an account? Sign in';
   }
 
-  String get emailErrorText {
+  String? get emailErrorText {
     bool showErrorText = submitted && !GetUtils.isEmail(emailController.text);
     return showErrorText ? invalidEmailErrorText : null;
   }
@@ -77,10 +73,10 @@ class AuthController extends GetxController {
           }
           break;
         case EmailSignInFormType.confirm:
-          isSignedIn.value = await _authService.confirmRegisterWithCode(
+          isSignedIn.value = (await _authService.confirmRegisterWithCode(
               emailController.text,
               passwordController.text,
-              codeController.text);
+              codeController.text))!;
       }
     } catch (e) {
       rethrow;
@@ -137,7 +133,7 @@ class AuthController extends GetxController {
 
   void updateform(String value) {
     submitEnabled.value = GetUtils.isEmail(emailController.text) &&
-        !GetUtils.isBlank(passwordController.text) &&
+        !GetUtils.isBlank(passwordController.text)! &&
         !isLoading.value;
   }
 }

@@ -6,7 +6,7 @@ import 'package:intl/intl.dart';
 
 class TodoCard extends StatelessWidget {
   final Todo todo;
-  const TodoCard({Key key, this.todo}) : super(key: key);
+  const TodoCard({required this.todo});
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +45,7 @@ class TodoCard extends StatelessWidget {
         leading: Checkbox(
           value: todo.isDone,
           onChanged: (newValue) {
-            _todocontroller.setToDoDone(todo, newValue);
+            _todocontroller.setToDoDone(todo, newValue!);
           },
         ),
         title: Text(
@@ -60,7 +60,8 @@ class TodoCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              DateFormat.yMMMMEEEEd().format(todo.createdAt.getDateTimeInUtc()),
+              DateFormat.yMMMMEEEEd()
+                  .format(todo.createdAt!.getDateTimeInUtc()),
               style: TextStyle(
                 color: Colors.grey,
                 fontSize: 10,

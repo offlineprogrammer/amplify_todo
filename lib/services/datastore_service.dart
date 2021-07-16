@@ -11,7 +11,7 @@ class DataStoreService {
     }
   }
 
-  Future<Users> getUser(String userId) async {
+  Future<Users?> getUser(String userId) async {
     try {
       List<Users> user = await Amplify.DataStore.query(Users.classType,
           where: Users.ID.eq(userId));
@@ -25,7 +25,7 @@ class DataStoreService {
     }
   }
 
-  Future<List<Todo>> getTodos(String userId) async {
+  Future<List<Todo>?> getTodos(String userId) async {
     try {
       List<Todo> todos = await Amplify.DataStore.query(Todo.classType,
           where: Todo.USERID.eq(userId));

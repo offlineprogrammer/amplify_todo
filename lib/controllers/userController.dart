@@ -14,11 +14,11 @@ class UserController extends GetxController {
   static UserController to = Get.find();
   DataStoreService _datastoreService = DataStoreService();
   AuthService _authService = AuthService();
-  final currentUser = Users().obs;
+  Rxn<Users> currentUser = Rxn<Users>();
   RxBool isLoading = false.obs;
   RxString imageUrl = ''.obs;
 
-  Users get user => currentUser.value;
+  Users? get user => currentUser.value;
 
   @override
   void onInit() {
@@ -48,11 +48,11 @@ class UserController extends GetxController {
         _image = File(pickedFile.path);
 
         _image.existsSync();
-        final userImageKey = currentUser.value.id + Uuid().v1() + '.png';
+        final userImageKey = currentUser.value!.id + Uuid().v1() + '.png';
         print(userImageKey);
 
         Map<String, String> metadata = <String, String>{};
-        metadata['name'] = currentUser.value.id;
+        metadata['name'] = currentUser.value!.id;
         metadata['desc'] = 'A test file';
         S3UploadFileOptions options = S3UploadFileOptions(
             accessLevel: StorageAccessLevel.guest, metadata: metadata);
@@ -64,14 +64,14 @@ class UserController extends GetxController {
             key: userImageKey, options: _getUrlOptions);
         print('URL: ' + resultUrl.url);
 
-        currentUser.value = currentUser.value
+        currentUser.value = currentUser.value!
             .copyWith(imageKey: userImageKey, imageUrl: resultUrl.url);
 
         print(currentUser.value);
 
         imageUrl.value = resultUrl.url;
 
-        await _datastoreService.saveUser(currentUser.value);
+        await _datastoreService.saveUser(currentUser.value!);
       } else {
         return null;
       }
