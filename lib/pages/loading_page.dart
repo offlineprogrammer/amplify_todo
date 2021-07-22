@@ -19,7 +19,7 @@ class LoadingPage extends StatelessWidget {
                 color: Color(0xffE1E5E4),
                 // height: 200,
                 child: Image.asset(
-                  'images/applogo.png',
+                  'images/aws.png',
                   fit: BoxFit.cover,
                 ),
               ),

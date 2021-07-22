@@ -74,9 +74,10 @@ class HomePage extends GetWidget<UserController> {
                             ? const Center(child: CircularProgressIndicator())
                             : Image.network(controller.imageUrl.value))
                     : Container(
+                        color: Color(0xffE1E5E4),
                         height: 150,
                         child: Image.asset(
-                          'images/applogo.png',
+                          'images/profile_image.png',
                           fit: BoxFit.contain,
                         ),
                       ),

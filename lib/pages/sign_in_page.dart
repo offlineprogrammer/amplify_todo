@@ -60,9 +60,19 @@ class SignInPage extends GetWidget<AuthController> {
             height: 8.0,
           ),
           SocialSignInButton(
+            button: Buttons.Apple,
+            onPressed: () => controller.signIn(AuthProvider.apple),
+            color: Colors.black54,
+            text: 'Sign in with Apple',
+            textColor: Colors.white,
+          ),
+          SizedBox(
+            height: 8.0,
+          ),
+          SocialSignInButton(
             button: Buttons.Amazon,
             onPressed: () => controller.signIn(AuthProvider.amazon),
-            color: Colors.black54,
+            color: Colors.black87,
             text: 'Sign in with Amazon',
             textColor: Colors.white,
           ),
