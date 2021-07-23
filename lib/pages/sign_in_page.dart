@@ -10,7 +10,7 @@ class SignInPage extends GetWidget<AuthController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('BatMan ToDo'),
+        title: Text('ToDo'),
         elevation: 10,
       ),
       body: _buildContent(context),

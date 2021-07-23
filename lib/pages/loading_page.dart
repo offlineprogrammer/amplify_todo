@@ -7,7 +7,7 @@ class LoadingPage extends StatelessWidget {
   Widget build(BuildContext context) {
     AuthController controller = Get.find();
     return Scaffold(
-      appBar: AppBar(title: Text('BatMan App')),
+      appBar: AppBar(title: Text('ToDo App')),
       body: Container(
         // color: Color(0xff90CCE6),
         child: Center(

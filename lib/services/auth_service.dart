@@ -18,8 +18,8 @@ class AuthService {
 
   Future<void> signOut() async {
     try {
-      await Amplify.Auth.signOut();
       await Amplify.DataStore.clear();
+      await Amplify.Auth.signOut();
     } on AuthException catch (e) {
       print(e.message);
     }

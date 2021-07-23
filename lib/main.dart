@@ -42,7 +42,7 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       initialBinding: ControllersBindings(),
-      title: 'BatMan ToDo',
+      title: 'ToDo',
       theme: ThemeData(
         primarySwatch: Colors.indigo,
       ),
